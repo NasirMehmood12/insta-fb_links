@@ -18,7 +18,7 @@ def get_instagram_links():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute('SELECT page_name,link,timestamp FROM instagram_links')
+        cursor.execute('SELECT page_name, link, TO_CHAR("timestamp", \'YYYY-MM-DD HH24:MI:SS\') AS formatted_timestamp FROM instagram_links')
         data = cursor.fetchall()
         cursor.close()
         conn.close()
