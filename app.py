@@ -18,7 +18,7 @@ def get_instagram_links():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute('SELECT page_name, link FROM instagram_links')
+        cursor.execute('SELECT * FROM instagram_links')
         data = cursor.fetchall()
         cursor.close()
         conn.close()
