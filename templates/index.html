@@ -77,14 +77,14 @@
                  
                     <th>Page Name</th>
                     <th>Link</th>
-                    <th>timestamp</th>
+                    <th>time posted</th>
                     
                 </tr>
                 {% for link in instagram_links %}
                 <tr data-page="{{ link.page_name }}">
                     
                     <td>{{ link.page_name }}</td>
-                    <td><a href="{{ link.link }}" target="_blank">{{ link }}</a></td>
+                    <td><a href="{{ link.link }}" target="_blank">{{ link.link }}</a></td>
                     <td>{{ link.timestamp }}</td>
                    
                 </tr>
