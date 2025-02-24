@@ -46,6 +46,7 @@ PASSWORD = "imm@geotv"
 #         return []
 
 
+
 def get_instagram_links():
     """Fetch Instagram links from the database, including timestamps."""
     try:
@@ -54,18 +55,15 @@ def get_instagram_links():
         cursor.execute('SELECT page_name, link, timestamp FROM instagram_links')
         data = cursor.fetchall()
 
-        # Convert tuples into dictionaries
-        results = []
-        for row in data:
-            results.append({
-                "page_name": row[0],
-                "link": row[1],
-                "timestamp": row[2].strftime('%Y-%m-%d %H:%M:%S') if row[2] else None
-            })
+        # Convert tuples into dictionaries using list comprehension
+        results = [
+            {"page_name": row[0], "link": row[1], "timestamp": row[2].strftime('%Y-%m-%d %H:%M:%S') if row[2] else None}
+            for row in data
+        ]
 
         cursor.close()
         conn.close()
-        return results  # ✅ Now returning a list of dictionaries
+        return results  # ✅ Returning a list of dictionaries
     except Exception as e:
         print(f"Error fetching Instagram links: {e}")
         return []
