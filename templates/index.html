@@ -54,8 +54,8 @@
         <label for="instagramFilter">Instagram:</label>
         <select id="instagramFilter">
             <option value="">All</option>
-            {% for page_name, link in instagram_links %}
-            <option value="{{ page_name }}">{{ page_name }}</option>
+            {% for link in instagram_links %}
+            <option value="{{ link.page_name }}">{{ link.page_name }}</option>
             {% endfor %}
         </select>
 
