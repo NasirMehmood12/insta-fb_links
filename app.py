@@ -13,16 +13,34 @@ USERNAME = "IMM"
 PASSWORD = "imm@geotv"
 
 
+# def get_instagram_links():
+#     """Fetch Instagram links from the database, including timestamps."""
+#     try:
+#         conn = psycopg2.connect(DATABASE_URL)
+#         cursor = conn.cursor()
+#         cursor.execute('SELECT page_name, link FROM instagram_links')
+#         data = cursor.fetchall()
+#         cursor.close()
+#         conn.close()
+#         return data  # Returns list of tuples (page_name, link, timestamp)
+#     except Exception as e:
+#         print(f"Error fetching Instagram links: {e}")
+#         return []
+
+
 def get_instagram_links():
-    """Fetch Instagram links from the database, including timestamps."""
+    """Fetch Instagram links from the database, including ID and timestamp."""
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute('SELECT page_name, link FROM instagram_links')
-        data = cursor.fetchall()
+        cursor.execute('SELECT id, page_name, link, timestamp FROM instagram_links')
+        rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        return data  # Returns list of tuples (page_name, link, timestamp)
+        
+        # Convert each row to a dictionary
+        data = [{"id": row[0], "page_name": row[1], "link": row[2], "timestamp": row[3]} for row in rows]
+        return data  
     except Exception as e:
         print(f"Error fetching Instagram links: {e}")
         return []
