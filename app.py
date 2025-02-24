@@ -28,22 +28,48 @@ PASSWORD = "imm@geotv"
 #         return []
 
 
+# def get_instagram_links():
+#     """Fetch Instagram links from the database, including ID and timestamp."""
+#     try:
+#         conn = psycopg2.connect(DATABASE_URL)
+#         cursor = conn.cursor()
+#         cursor.execute('SELECT id, page_name, link, timestamp FROM instagram_links')
+#         rows = cursor.fetchall()
+#         cursor.close()
+#         conn.close()
+        
+#         # Convert each row to a dictionary
+#         data = [{"id": row[0], "page_name": row[1], "link": row[2], "timestamp": row[3]} for row in rows]
+#         return data  
+#     except Exception as e:
+#         print(f"Error fetching Instagram links: {e}")
+#         return []
+
+
 def get_instagram_links():
-    """Fetch Instagram links from the database, including ID and timestamp."""
+    """Fetch Instagram links from the database, including timestamps."""
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute('SELECT id, page_name, link, timestamp FROM instagram_links')
-        rows = cursor.fetchall()
+        cursor.execute('SELECT page_name, link, timestamp FROM instagram_links')
+        data = cursor.fetchall()
+
+        # Convert tuples into dictionaries
+        results = []
+        for row in data:
+            results.append({
+                "page_name": row[0],
+                "link": row[1],
+                "timestamp": row[2].strftime('%Y-%m-%d %H:%M:%S') if row[2] else None
+            })
+
         cursor.close()
         conn.close()
-        
-        # Convert each row to a dictionary
-        data = [{"id": row[0], "page_name": row[1], "link": row[2], "timestamp": row[3]} for row in rows]
-        return data  
+        return results  # ✅ Now returning a list of dictionaries
     except Exception as e:
         print(f"Error fetching Instagram links: {e}")
         return []
+
 
 
 
@@ -73,7 +99,7 @@ def index():
     facebook_links = get_facebook_links()
 
     instagram_pages = list(set([link["page_name"] for link in instagram_links]))  
-    facebook_pages = list(set([link["page_name"] for link in facebook_links]))
+    facebook_pages = list(set([link[0] for link in facebook_links]))
    
     return render_template("index.html", 
                            instagram_links=instagram_links, 
