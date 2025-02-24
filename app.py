@@ -63,7 +63,7 @@ def index():
                            facebook_links=facebook_links, 
                            instagram_pages=instagram_pages, 
                            facebook_pages=facebook_pages,
-                           timmestamps=timestamps)
+                           timestamps=timestamps)
 
 
 
