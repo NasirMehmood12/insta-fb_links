@@ -18,7 +18,7 @@ def get_instagram_links():
     try:
         conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
-        cursor.execute('SELECT page_name, link, TO_CHAR("timestamp", \'YYYY-MM-DD HH24:MI:SS\') AS formatted_timestamp FROM instagram_links')
+        cursor.execute('SELECT id, page_name, link FROM instagram_links')
         data = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -56,15 +56,12 @@ def index():
 
     instagram_pages = list(set([link[0] for link in instagram_links]))  
     facebook_pages = list(set([link[0] for link in facebook_links]))
-    timestamps = list(set([link[2] for link in instagram_links]))
-
+   
     return render_template("index.html", 
                            instagram_links=instagram_links, 
                            facebook_links=facebook_links, 
                            instagram_pages=instagram_pages, 
-                           facebook_pages=facebook_pages,
-                           timestamps=timestamps)
-
+                           facebook_pages=facebook_pages)
 
 
 
