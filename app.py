@@ -56,12 +56,14 @@ def index():
 
     instagram_pages = list(set([link[0] for link in instagram_links]))  
     facebook_pages = list(set([link[0] for link in facebook_links]))
+    timestamp = list(set([link[0] for link in instagram_links]))
 
     return render_template("index.html", 
                            instagram_links=instagram_links, 
                            facebook_links=facebook_links, 
                            instagram_pages=instagram_pages, 
-                           facebook_pages=facebook_pages)
+                           facebook_pages=facebook_pages,
+                           timmestamp=timestamp)
 
 
 
