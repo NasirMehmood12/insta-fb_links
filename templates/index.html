@@ -74,15 +74,17 @@
             <h3>Instagram Links</h3>
             <table id="instagramTable">
                 <tr>
+                    <th>id</th>
                     <th>Page Name</th>
                     <th>Link</th>
-                    <th>Timestamp</th>
+                    
                 </tr>
-                {% for page_name, link,timestamp in instagram_links %}
+                {% for id,page_name, link in instagram_links %}
                 <tr data-page="{{ page_name }}">
+                    <td>{{ id }}</td>
                     <td>{{ page_name }}</td>
                     <td><a href="{{ link }}" target="_blank">{{ link }}</a></td>
-                    <td>{{ timestamp }}</td>
+                    
                    
                 </tr>
                 {% endfor %}
